@@ -1,0 +1,5 @@
+div.columns { margin-top: 20px; }
+h3.balance i { font-size: 23px; }
+.transactions { margin-top: 20px; }
+.transactions th,
+.transactions td { text-align: right; }
