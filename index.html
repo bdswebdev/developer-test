@@ -36,7 +36,7 @@
                     <li class="has-dropdown">
                         <a href="#">Currency</a>
                         <ul class="dropdown currency-selector">
-                            <li ng-repeat="(currency, data) in currencies.list" ng-class='(currencies.getActive() == currency ? "active" : "")'><a ng-bind="currency" ng-click="changeActive(currency)"></a></li>
+                            <li ng-repeat="(currency, data) in currencies.list" ng-class='($storage.activeCurrency == currency ? "active" : "")'><a ng-bind="currency" ng-click="changeActive(currency)"></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -81,7 +81,7 @@
                     <option value="">Add</option>
                     <option value="">Remove</option>
                 </select>
-                <button class="add">
+                <button ng-click="submitForm()">
                     SAVE
                 </button>
             </form>

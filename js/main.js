@@ -2,7 +2,6 @@
 var app = angular.module('wallet', ['ngStorage']);
 
 app.provider('currency', function () {
-    var activeCurrency = "gbp";
     return {
         $get: function () {
             return {
@@ -19,12 +18,6 @@ app.provider('currency', function () {
                         code: "$",
                         class: "usd"
                     }
-                },
-                getActive: function () {
-                    return activeCurrency;
-                },
-                setActive: function (curr) {
-                    activeCurrency = curr;
                 }
             }
         }
@@ -34,18 +27,25 @@ app.provider('currency', function () {
 
 app.controller('MenuCtrl', ['$scope', 'currency', '$localStorage', '$rootScope',
     function ($scope, currency, $localStorage, $rootScope) {
+        $scope.$storage = $localStorage;
+        $scope.$storage = $localStorage.$default({
+            activeCurrency: "gbp"
+        });
         $scope.currencies = currency;
+        
         $scope.changeActive = function(currency){
-            $scope.currencies.setActive(currency);
+            $scope.$storage.activeCurrency = currency;
             $rootScope.$broadcast('UPDATE_CURRENCY',currency);
         }
     }
 ]);
 
-app.controller('WalletCtrl', ['$scope', 'currency', '$rootScope',
-    function ($scope, currency, $rootScope) {
+app.controller('WalletCtrl', ['$scope', 'currency', '$localStorage', '$rootScope',
+    function ($scope, currency, $localStorage, $rootScope) {
         $scope.currencies = currency;
-        $scope.currency = $scope.currencies.list[$scope.currencies.getActive()];
+        $scope.$storage = $localStorage;
+        
+        $scope.currency = $scope.currencies.list[$scope.$storage.activeCurrency];
         $rootScope.$on('UPDATE_CURRENCY', function(event, newCurrency) {
             $scope.currency = $scope.currencies.list[newCurrency];
         });
