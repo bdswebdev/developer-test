@@ -6,17 +6,17 @@ app.provider('currency', function () {
     return {
         $get: function () {
             return {
-                list: {
+                list:{
                     eur: {
-                        code: "&euro;",
+                        code: "€",
                         class: "eur"
                     },
                     gbp: {
-                        code: "&pound;",
+                        code: "£",
                         class: "gbp"
                     },
                     usd: {
-                        code: "&usd;",
+                        code: "$",
                         class: "usd"
                     }
                 },
@@ -31,14 +31,23 @@ app.provider('currency', function () {
     }
 });
 
-app.controller('MenuCtrl', ['$scope', 'currency', '$localStorage',
-    function ($scope, currency, $localStorage) {
+
+app.controller('MenuCtrl', ['$scope', 'currency', '$localStorage', '$rootScope',
+    function ($scope, currency, $localStorage, $rootScope) {
         $scope.currencies = currency;
-        $scope.currencies.setActive("eur");
+        $scope.changeActive = function(currency){
+            $scope.currencies.setActive(currency);
+            $rootScope.$broadcast('UPDATE_CURRENCY',currency);
+        }
     }
 ]);
 
-app.controller('WalletCtrl', ['$scope', 'currency',
-    function ($scope, currency) {
+app.controller('WalletCtrl', ['$scope', 'currency', '$rootScope',
+    function ($scope, currency, $rootScope) {
+        $scope.currencies = currency;
+        $scope.currency = $scope.currencies.list[$scope.currencies.getActive()];
+        $rootScope.$on('UPDATE_CURRENCY', function(event, newCurrency) {
+            $scope.currency = $scope.currencies.list[newCurrency];
+        });
     }
 ]);

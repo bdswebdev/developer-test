@@ -36,7 +36,7 @@
                     <li class="has-dropdown">
                         <a href="#">Currency</a>
                         <ul class="dropdown currency-selector">
-                            <li ng-repeat="(key, currency) in currencies.list" ng-class='(currencies.getActive() == key ? "active" : "")'><a ng-bind="currency.class" ng-click="currencies.setActive(currency.class)"></a></li>
+                            <li ng-repeat="(currency, data) in currencies.list" ng-class='(currencies.getActive() == currency ? "active" : "")'><a ng-bind="currency" ng-click="changeActive(currency)"></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -49,7 +49,7 @@
             <table class="transactions">
                 <thead>
                     <tr>
-                        <th width="100"></th>
+                        <th width="50"></th>
                         <th>Time</th>
                         <th>Amount</th>
                         <th>Balance</th>
@@ -59,18 +59,18 @@
                     <tr>
                         <td>1</td>
                         <td>23/09/2014</td>
-                        <td>&pound;200</td>
-                        <td>&pound;200</td>
+                        <td><span ng-bind="currency.code"></span>200</td>
+                        <td><span ng-bind="currency.code"></span>200</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>24/09/2014</td>
-                        <td>-&pound;100</td>
-                        <td>&pound;100</td>
+                        <td>-<span ng-bind="currency.code"></span>100</td>
+                        <td><span ng-bind="currency.code"></span>100</td>
                     </tr>
                 </tbody>
             </table>
-            <h3 class="balance">BALANCE: <i class="fa fa-gbp"></i>100</h3>
+            <h3 class="balance">BALANCE: <i class="fa fa-{{currency.class}}"></i>100</h3>
         </div>
         <div class="small-12 medium-4 large-4 columns"  data-equalizer-watch>
             <form name="action-form" id="action-form" action="">
