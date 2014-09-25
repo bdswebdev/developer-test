@@ -16,7 +16,7 @@
         <nav class="top-bar" data-topbar role="navigation">
             <ul class="title-area">
                 <li class="name">
-                    <h1><a href="#">Home</a></h1>
+                    <h1><a ui-sref="home">Home</a></h1>
                 </li>
                 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a>
                 </li>
@@ -26,10 +26,10 @@
             <section class="top-bar-section">
                 <ul class="left">
                     <li>
-                        <a href="#">Reset</a>
+                        <a ng-click="reset()">Reset</a>
                     </li>
                     <li>
-                        <a href="#">Source View</a>
+                        <a ui-sref="source">Source View</a>
                     </li>
                 </ul>
                 <ul class="right">
@@ -43,58 +43,17 @@
             </section>
         </nav>
     </div>
-    <div ng-controller="WalletCtrl" class="row" data-equalizer>
-        <div class="small-12 medium-8 large-8 columns transactions" data-equalizer-watch>
-            <h4>Transactions</h4>
-            <table class="transactions">
-                <thead>
-                    <tr>
-                        <th width="50"></th>
-                        <th>Time</th>
-                        <th>Amount</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="transaction in $storage.transactions">
-                        <td ng-bind="$index + 1"></td>
-                        <td ng-bind="transaction.time | date : 'medium'"></td>
-                        <td><span ng-bind="currency.code"></span><span ng-bind="transaction.amount"></span></td>
-                        <td><span ng-bind="currency.code"></span><span ng-bind="transaction.balance"></span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <h3 class="balance">BALANCE: <i class="fa fa-{{currency.class}}"></i>100</h3>
-        </div>
-        <div class="small-12 medium-4 large-4 columns"  data-equalizer-watch>
-            <form name="action-form" id="action-form" action="">
-                <label for="value">Value</label>
-                <input type="text" name="value" id="value" placeholder="Please enter value">
-                <label for="action-type">Action</label>
-                <select name="action-type" id="action-type">
-                    <option value="">Add</option>
-                    <option value="">Remove</option>
-                </select>
-                <button ng-click="submitForm()">
-                    SAVE
-                </button>
-            </form>
-        </div>
-    </div>
+    
+    <div ui-view></div>
 
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
-    <script src="js/foundation/foundation.equalizer.js"></script>
     <script src="js/vendor/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular-route.js"></script>
+    <script src="js/vendor/angular-ui-route.js"></script>
     <script src="js/vendor/ngStorage.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script>
-        $(document).foundation({
-            equalizer : {
-                equalize_on_stack: false
-              }
-        });
+        $(document).foundation();
     </script>
 </body>
 

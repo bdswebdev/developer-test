@@ -5,7 +5,4 @@ div.transactions { min-height:268px; }
 table.transactions { margin-top: 20px; }
 table.transactions th,
 table.transactions td { text-align: right; }
-@media (min-width: 641px) {
-    #action-form { position: absolute; bottom: 0; width:85%; }
-}
 .top-bar-section .currency-selector li a { text-transform: uppercase; }
