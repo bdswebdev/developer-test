@@ -56,17 +56,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>23/09/2014</td>
-                        <td><span ng-bind="currency.code"></span>200</td>
-                        <td><span ng-bind="currency.code"></span>200</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>24/09/2014</td>
-                        <td>-<span ng-bind="currency.code"></span>100</td>
-                        <td><span ng-bind="currency.code"></span>100</td>
+                    <tr ng-repeat="transaction in $storage.transactions">
+                        <td ng-bind="$index + 1"></td>
+                        <td ng-bind="transaction.time | date : 'medium'"></td>
+                        <td><span ng-bind="currency.code"></span><span ng-bind="transaction.amount"></span></td>
+                        <td><span ng-bind="currency.code"></span><span ng-bind="transaction.balance"></span></td>
                     </tr>
                 </tbody>
             </table>

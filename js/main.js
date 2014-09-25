@@ -29,9 +29,23 @@ app.controller('MenuCtrl', ['$scope', 'currency', '$localStorage', '$rootScope',
     function ($scope, currency, $localStorage, $rootScope) {
         $scope.$storage = $localStorage;
         $scope.$storage = $localStorage.$default({
-            activeCurrency: "gbp"
+            activeCurrency: "gbp",
+            transactions: [
+                {
+                    time: Date.now(),
+                    amount: 200,
+                    balance: 200
+                },
+                {
+                    time: Date.now(),
+                    amount: -100,
+                    balance: 100
+                }
+            ]
         });
+        
         $scope.currencies = currency;
+        console.log($scope.$storage.transactions);
         
         $scope.changeActive = function(currency){
             $scope.$storage.activeCurrency = currency;
