@@ -1,5 +1,11 @@
 div.columns { margin-top: 20px; }
+h3.balance { float:right; }
 h3.balance i { font-size: 23px; }
-.transactions { margin-top: 20px; }
-.transactions th,
-.transactions td { text-align: right; }
+div.transactions { min-height:268px; }
+table.transactions { margin-top: 20px; }
+table.transactions th,
+table.transactions td { text-align: right; }
+@media (min-width: 641px) {
+    #action-form { position: absolute; bottom: 0; width:85%; }
+}
+.top-bar-section .currency-selector li a { text-transform: uppercase; }
