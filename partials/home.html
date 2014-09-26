@@ -14,8 +14,8 @@
                     <tr ng-repeat="transaction in $storage.transactions">
                         <td ng-bind="$index + 1"></td>
                         <td ng-bind="transaction.time | date : 'medium'"></td>
-                        <td><span ng-bind="currency.code"></span><span ng-bind="transaction.amount"></span></td>
-                        <td><span ng-bind="currency.code"></span><span ng-bind="transaction.balance"></span></td>
+                        <td><span currency ng-bind="transaction.amount | curr:currency.code"></span></td>
+                        <td><span currency ng-bind="transaction.balance | curr:currency.code"></span></td>
                     </tr>
                 </tbody>
             </table>

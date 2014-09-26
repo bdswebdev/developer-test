@@ -8,7 +8,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/",
             templateUrl: "partials/home.html"
         })
-        .state('state1.list', {
+        .state('source', {
             url: "/source",
             templateUrl: "partials/source-view.html"
         })
@@ -116,3 +116,14 @@ app.directive('numbersOnly', function(){
      }
    };
 });
+
+app.filter('curr', [function () {
+    return function (amount, currency) {
+        if(amount<0) {
+            return "-" + currency + Math.abs(amount);
+        }
+        else{
+            return currency + amount; 
+        }
+    };
+}]);
