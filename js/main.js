@@ -61,32 +61,37 @@ app.controller('MenuCtrl', ['$scope', 'currency', '$localStorage', '$rootScope',
 
 app.controller('WalletCtrl', ['$scope', 'currency', '$localStorage', '$rootScope',
     function ($scope, currency, $localStorage, $rootScope) {
-        $scope.action = "add";
-        $scope.message ="Form";
+        $scope.form = {};
+        $scope.form.action = 'add';
+        $scope.form.message = '';
+        $scope.form.messagetype = '';
+        $scope.form.amount = '';
         $scope.currencies = currency;
         $scope.$storage = $localStorage;
 
         $scope.currency = $scope.currencies.list[$scope.$storage.activeCurrency];
 
         $scope.save = function () {
-            var amount = parseInt($scope.amount);
-            if ($scope.action == "remove") {
+            var amount = parseInt($scope.form.amount);
+            if ($scope.form.action == 'remove') {
                 amount = amount * -1;
             }
             var balance = parseInt($scope.$storage.balance) + amount;
-            if(balance > 0) {
+            if(balance >= 0) {
                 $scope.$storage.transactions.push({
                     time: Date.now(),
                     amount: amount,
                     balance: balance
                 });
                 $scope.$storage.balance = balance;
-                $scope.message = "Form";
+                $scope.form.message = '';
+                $scope.form.messagetype = '';
             }
             else {
-                $scope.message = "Sorry but you cannot have a negative balance. The maximum amount you can remove from the wallet was placed into the input field.";
-                $scope.amount = $scope.$storage.balance;
+                $scope.form.message = 'Sorry but you cannot have a negative balance';
+                $scope.form.messagetype = 'error';
             }
+            $scope.form.amount = "";
         }
 
         $rootScope.$on('UPDATE_CURRENCY', function (event, newCurrency) {
@@ -94,3 +99,20 @@ app.controller('WalletCtrl', ['$scope', 'currency', '$localStorage', '$rootScope
         });
     }
 ]);
+
+app.directive('numbersOnly', function(){
+   return {
+     require: 'ngModel',
+     link: function(scope, element, attrs, modelCtrl) {
+       modelCtrl.$parsers.push(function (inputValue) {
+           if (inputValue == undefined) return '' 
+           var transformedInput = inputValue.replace(/[^0-9]/g, ''); 
+           if (transformedInput!=inputValue) {
+              modelCtrl.$setViewValue(transformedInput);
+              modelCtrl.$render();
+           }
+           return transformedInput;         
+       });
+     }
+   };
+});
